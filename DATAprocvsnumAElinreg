@@ -1,0 +1,33 @@
+Case Series Table,Types of Procedure(s),Surgical Procedures,Imaging Procedures,Minimally Invasive Procedures,# of Procedures,# of Adverse Events
+Case 1,Surgery,3,0,0,3,3
+Case 2,Surgery,1,0,0,1,2
+Case 3,Imaging,0,6,0,6,1
+Case 4,Surgery/Imaging,1,4,0,1,1
+Case 5,Imaging,0,2,0,2,0
+Case 6,Imaging,0,1,0,1,0
+Case 7,Imaging,0,1,0,1,0
+Case 8,Surgery,1,0,0,1,0
+Case 9,Surgery,3,0,0,3,0
+Case 10,Imaging,0,2,0,2,0
+Case 11,Imaging/Minimally Invasive,0,1,1,1,0
+Case 12,Surgery,5,0,0,5,0
+Case 13,Surgery,6,0,0,6,4
+Case 14,Minimally Invasive,0,0,1,1,0
+Case 15,Surgery/Imaging,1,1,0,1,0
+Case 16,Surgery,5,0,0,5,5
+Case 17,Minimally Invasive,0,0,1,1,0
+Case 18,Minimally Invasive,0,0,2,2,2
+Case 19,Imaging/Minimally Invasive,0,1,1,1,1
+Case 20,Minimally Invasive,0,0,1,1,0
+Case 21,Surgery,1,0,0,1,1
+Case 22,Imaging,0,2,0,2,0
+Case 23,Surgery,2,0,0,2,0
+Case 24,Surgery,6,0,0,6,4
+Case 25,Surgery,2,0,0,2,1
+Case 26,Surgery,2,0,0,2,2
+Case 27,Surgery,1,0,0,1,1
+Case 28,Imaging,0,2,0,2,0
+Case 29,Imaging,0,2,0,2,0
+Case 30,Surgery,3,0,0,3,0
+Case 31,Surgery,2,0,0,2,1
+Case 32,Surgery,2,0,0,2,0

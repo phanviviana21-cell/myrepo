@@ -1,3 +1,6 @@
+#HOW TO COMMIT
+#push change, git bash, insert+enter, commit message, esc+:wq
+
 #Download elrm package
 require(elrm)
 

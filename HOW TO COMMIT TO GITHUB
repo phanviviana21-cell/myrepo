@@ -1,0 +1,5 @@
+HOW TO COMMIT
+Via RStudio: commit change with commit message, then push change
+
+If open git bash, don't forget to do cd "(insert myrepo path)"
+If need to add commit message in Git Bash, insert+enter, type, esc+:wq+enter

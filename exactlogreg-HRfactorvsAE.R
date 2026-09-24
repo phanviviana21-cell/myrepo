@@ -1,7 +1,3 @@
-#HOW TO COMMIT
-#push change, git bash, insert+enter, commit message, esc+:wq
-#Remember to put cd "(insert myrepo path)" when open git bash
-
 #Download elrm package
 require(elrm)
 

@@ -91,9 +91,7 @@ length(cdat$Adverse.Events)
 length(cdat$ncases)
 
 ## model with Severe.SVAS predictor only
-modelSVAS <- elrm(formula= Adverse.Events/ncases ~ Severe.SVAS+ischemia.ECG+
-                    coronary.anomalies+Severe.LVH+BVOT.disease+prolonged.QTc+
-                    Age..3+Arrhythmia, interest = ~Severe.SVAS, 
+modelSVAS <- elrm(formula= Adverse.Events/ncases ~ Severe.SVAS, interest = ~Severe.SVAS, 
                  dataset = cdat)
 
 #Error: columns have different # of rows

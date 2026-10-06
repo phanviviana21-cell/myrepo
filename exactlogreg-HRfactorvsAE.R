@@ -4,7 +4,7 @@
 require(elrm)
 
 #Edit "mydata" from logreg into something easy to work on
-mydata <- read.csv(file="DATAHRfactorvsAElogreg", 
+mydata <- read.csv(file="(CLEAN DATA) High Risk Factor vs Adverse Outcome (Logistic Regression) - Sheet1.csv", 
                    header=TRUE,
                    sep =",")
 head(mydata)

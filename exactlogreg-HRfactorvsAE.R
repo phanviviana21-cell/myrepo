@@ -121,39 +121,53 @@ modelSVAS <- elrm(adverse/ncases ~
                   iter = 15000, burnIn = 5000, dataset = cdat)
 summary(modelSVAS)
 #p-value = 1
+#Calculate odds ratio = e^estimate
+exp(0.10756)
 
 modelCoronary <- elrm(adverse/ncases ~ Coronary.artery.anomalies..Kopparapu., 
                       interest = ~ Coronary.artery.anomalies..Kopparapu.,
                       iter = 15000, burnIn = 5000, dataset = cdat)
 summary(modelCoronary)
 #p-value = 1
+#Calculate odds ratio = e^estimate
+exp(-0.01353)
 
 modelLVH <- elrm(adverse/ncases ~ Severe.LVH, 
                  interest = ~ Severe.LVH,
                  iter = 15000, burnIn = 5000, dataset = cdat)
 summary(modelLVH)
 #p-value = 1
+#Calculate odds ratio = e^estimate
+exp(0.0388)
 
 modelBVOT <- elrm(adverse/ncases ~ Biventricular.outflow.tract.disease, 
                   interest = ~ Biventricular.outflow.tract.disease,
                   iter = 15000, burnIn = 5000, dataset = cdat)
 summary(modelBVOT)
 #p-value = 1
+#Calculate odds ratio = e^estimate
+exp(0.18714)
 
 modelQTc <- elrm(adverse/ncases ~ Prolonged.QTc...500.ms., 
                  interest = ~ Prolonged.QTc...500.ms.,
                  iter = 15000, burnIn = 5000, dataset = cdat)
 summary(modelQTc)
-#p-value = 0.2068
+#p-value = 0.2204
+#Calculate odds ratio = e^estimate
+exp(1.16406)
 
 modelage <- elrm(adverse/ncases ~ Age..3, 
                  interest = ~ Age..3,
                  iter = 15000, burnIn = 5000, dataset = cdat)
 summary(modelage)
-#p-value = 0.7143
+#p-value = 0.7241
+#Calculate odds ratio = e^estimate
+exp(0.42075)
 
 modelarr <- elrm(adverse/ncases ~ Arrhythmia, 
                  interest = ~ Arrhythmia,
                  iter = 15000, burnIn = 5000, dataset = cdat)
 summary(modelarr)
-#p-value = 0.6128
+#p-value = 0.3265
+#Calculate odds ratio = e^estimate
+exp(1.18742)

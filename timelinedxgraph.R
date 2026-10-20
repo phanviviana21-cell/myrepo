@@ -15,15 +15,18 @@ require(ggplot2)
 #plot for all pts
 ggplot(data = timelinedata,
        mapping = aes(x = age,
-                     y = patient,
-                     fill=event))+
+                     y = patient))+
+  geom_point(aes(shape=ind,
+                 fill=event),
+             size=4,stroke=1)+
+  scale_shape_manual(values=c(21,22,23,24))+
+  guides(fill=guide_legend(override.aes=list(shape=21)))+
   geom_line(mapping=aes(group=patient),
             color="black",
             linewidth = 1)+
-  geom_point(shape=21,size=2,stroke=1)+
   scale_y_continuous(breaks=c(1,2,4,5,6,7,8),
                      labels = c('1721','1775','5499','6239','6268','6397','7003'))+
-  labs(x = "Age(yrs)",
+ labs(x = "Age(yrs)",
        y = "Patient Identifier",
        title= "Line Plot Chronology of WS Pt Medical Events"
   )

@@ -4,7 +4,7 @@
 require(elrm)
 
 #Edit "mydata" from logreg into something easy to work on
-mydata <- read.csv(file="WSONLYelrmdata", 
+mydata <- read.csv(file="ONLYWSelrmdata", 
                    header=TRUE,
                    sep =",")
 head(mydata)

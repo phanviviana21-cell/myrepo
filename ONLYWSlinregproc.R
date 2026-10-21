@@ -15,4 +15,7 @@ modellinprocreg <- glm(X..of.Adverse.Events ~ Surgical.Procedures +
 #summary of model
 summary(modellinprocreg)
 
+#CI
+confint(modellinprocreg,level=0.95)
+
 #Visualizing procedure data??

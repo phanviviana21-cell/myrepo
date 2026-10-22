@@ -307,3 +307,33 @@ modelivhyd <- elrm(adverse/ncases ~
 summary(modelivhyd)
 #Calculate odds ratio = e^estimate
 exp(2.48484)
+
+
+
+
+
+##### IV to Procedure LIN REG #####
+#Reading CSV file
+IVdata <- read.csv(file="IVhydlindata", 
+                   header=TRUE,
+                   sep =",")
+
+head(IVdata)
+summary(IVdata)
+
+IVdata$IV.Hydration.Date <- NULL
+IVdata$Proc.Date <- NULL
+
+IVdata$IV.to.Proc..days. <- as.numeric(IVdata$IV.to.Proc..days.)
+
+#making the model
+modellinprocreg <- glm(X..of.Adverse.Events ~ 
+                         IV.to.Proc..days., data = IVdata)
+
+#summary of model
+summary(modellinprocreg)
+
+#CI
+confint(modellinprocreg,level=0.95)
+
+#Visualizing procedure data??

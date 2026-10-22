@@ -99,6 +99,7 @@ mydata[mydata == "No"] <- 0
 mydata[mydata == "Before"] <- 1
 mydata[mydata == "After"] <- 0
   
+mydata$IV.Prehydration <- as.numeric(mydata$IV.Prehydration)
 mydata$Ind.Time <- as.numeric(mydata$Ind.Time)
 mydata$Inhale <- as.numeric(mydata$Inhale)
 mydata$IV <- as.numeric(mydata$IV)
@@ -116,7 +117,8 @@ exactdata$Case.Series.Table <- NULL
 cdat <- aggregate(Adverse.Events ~
                     IV+
                     Inhale+
-                    Ind.Time,
+                    Ind.Time+
+                    IV.Prehydration,
                   data = exactdata,
                   FUN = function(x) c(adverse=sum(x),ncases = length(x)))
 
@@ -124,6 +126,7 @@ cdat <- data.frame(
   Ind.Time = cdat$Ind.Time,
   Inhale = cdat$Inhale,
   IV = cdat$IV,
+  Hydrate = cdat$IV.Prehydration,
   adverse = cdat$Adverse.Events[,"adverse"],
   ncases = cdat$Adverse.Events[,"ncases"])
 
@@ -136,27 +139,142 @@ modeldx <- elrm(adverse/ncases ~
                 interest = ~ Ind.Time,
                 iter = 15000, burnIn = 5000, dataset = cdat)
 summary(modeldx)
-#p-value = 1
 #Calculate odds ratio = e^estimate
-exp(0.52334)
+exp(1.18006)
 
 modeliv <- elrm(adverse/ncases ~ 
                   IV, 
                 interest = ~ IV,
                 iter = 15000, burnIn = 5000, dataset = cdat)
 summary(modeliv)
-#p-value = 1
 #Calculate odds ratio = e^estimate
-exp(1.16081)
+exp(0.72393)
 
 modelinhale <- elrm(adverse/ncases ~ 
                   Inhale, 
                 interest = ~ Inhale,
                 iter = 15000, burnIn = 5000, dataset = cdat)
 summary(modelinhale)
-#p-value = 1
 #Calculate odds ratio = e^estimate
-exp(-2.14132)
+exp(-1.61668)
+
+modelprehyd <- elrm(adverse/ncases ~ 
+                      Hydrate, 
+                    interest = ~ Hydrate,
+                    iter = 15000, burnIn = 5000, dataset = cdat)
+summary(modelprehyd)
+#Calculate odds ratio = e^estimate
+exp(2.57619)
+
+
+
+
+
+
+
+###DX VS AE ALT####
+
+#dont forget to set wd
+
+#Download elrm package
+require(elrm)
+
+#Edit "mydata" from logreg into something easy to work on
+mydata <- read.csv(file="Dxelrmdataalt", 
+                   header=TRUE,
+                   sep =",")
+head(mydata)
+summary(mydata)
+
+#turn categorical data into numbers
+mydata[mydata == "Yes"] <- 1
+mydata[mydata == "No"] <- 0
+mydata[mydata == "Before"] <- 1
+mydata[mydata == "After"] <- 0
+
+mydata$IV.Prehydration <- as.numeric(mydata$IV.Prehydration)
+mydata$Ind.Time <- as.numeric(mydata$Ind.Time)
+mydata$Inhale <- as.numeric(mydata$Inhale)
+mydata$IV <- as.numeric(mydata$IV)
+mydata$Both <- as.numeric(mydata$Both)
+mydata$Adverse.Events <- as.numeric(mydata$Adverse.Events)
+
+summary(mydata)
+
+#making exact data
+exactdata <- mydata
+exactdata$Case.Series.Table <- NULL
+
+#Making collapsed data set
+#cdat <- cdat <- data.frame(Severe.SVAS = rep(0:1,2), Coronary.artery.anomalies..Kopparapu. = rep(0:1,each = 2),Severe.LVH = rep(0:1,each = 2),Adverse.Events = x[2, ],ncases = colSums(x))
+
+cdat <- aggregate(Adverse.Events ~
+                    IV+
+                    Inhale+
+                    Ind.Time+
+                    IV.Prehydration+
+                    Both,
+                  data = exactdata,
+                  FUN = function(x) c(adverse=sum(x),ncases = length(x)))
+
+cdat <- data.frame(
+  Ind.Time = cdat$Ind.Time,
+  Inhale = cdat$Inhale,
+  IV = cdat$IV,
+  Hydrate = cdat$IV.Prehydration,
+  Both = cdat$Both,
+  adverse = cdat$Adverse.Events[,"adverse"],
+  ncases = cdat$Adverse.Events[,"ncases"])
+
+#View aggregated data set
+cdat
+
+## model with each predictor one at a time
+modeldx <- elrm(adverse/ncases ~ 
+                  Ind.Time, 
+                interest = ~ Ind.Time,
+                iter = 15000, burnIn = 5000, dataset = cdat)
+summary(modeldx)
+#Calculate odds ratio = e^estimate
+exp(1.20163)
+
+modeliv <- elrm(adverse/ncases ~ 
+                  IV, 
+                interest = ~ IV,
+                iter = 15000, burnIn = 5000, dataset = cdat)
+summary(modeliv)
+#Calculate odds ratio = e^estimate
+exp(2.08748)
+
+modelinhale <- elrm(adverse/ncases ~ 
+                      Inhale, 
+                    interest = ~ Inhale,
+                    iter = 15000, burnIn = 5000, dataset = cdat)
+summary(modelinhale)
+#Calculate odds ratio = e^estimate
+exp(-0.80614)
+
+modelprehyd <- elrm(adverse/ncases ~ 
+                      Hydrate, 
+                    interest = ~ Hydrate,
+                    iter = 15000, burnIn = 5000, dataset = cdat)
+summary(modelprehyd)
+#Calculate odds ratio = e^estimate
+exp(2.39846)
+
+
+modelboth <- elrm(adverse/ncases ~
+                    Both,
+                  interest = ~ Both,
+                  iter = 15000, burnIn = 5000,
+                  dataset = cdat)
+
+summary(modelboth)
+#Calculate odds ratio = e^estimate
+exp(-1.84435)
+
+
+
 
 
 
@@ -329,6 +447,34 @@ IVdata$IV.to.Proc..days. <- as.numeric(IVdata$IV.to.Proc..days.)
 #making the model
 modellinprocreg <- glm(X..of.Adverse.Events ~ 
                          IV.to.Proc..days., data = IVdata)
+
+#summary of model
+summary(modellinprocreg)
+
+#CI
+confint(modellinprocreg,level=0.95)
+
+#Visualizing procedure data??
+
+
+
+#### Dx to Ind time vs AE LIN REG#####
+#Reading CSV file
+Inddata <- read.csv(file="Indregdata", 
+                   header=TRUE,
+                   sep =",")
+
+Inddata[,1:5] <- NULL
+Inddata[,3:5] <- NULL
+
+Inddata$Time.b.w.Dx.and.Ind..yrs. <- as.numeric(Inddata$Time.b.w.Dx.and.Ind..yrs.)
+
+head(Inddata)
+summary(Inddata)
+
+#making the model
+modellinprocreg <- glm(X..of.Adverse.Events ~ 
+                         Time.b.w.Dx.and.Ind..yrs., data = Inddata)
 
 #summary of model
 summary(modellinprocreg)
